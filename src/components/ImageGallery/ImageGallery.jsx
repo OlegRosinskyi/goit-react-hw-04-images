@@ -24,31 +24,27 @@ export default function ImageGallery({imageName,onClikeImage}) {
    
     useEffect(() => {
        
-        if (imageName === '') { console.log('useEffect: порожня строка в imageName');  statusSet.current = 'idle';return; }
-        console.log(prevImageName.current);
+        if (imageName === '') {  statusSet.current = 'idle';return; }
+       // console.log(prevImageName.current);
         if (prevImageName.current !== imageName) {
-            console.log('useEffect: prevImageName.current !== imageName');
+           // console.log('useEffect: prevImageName.current !== imageName');
             prevImageName.current = imageName;
             pageTotalSet.current=0;statusSet.current='idle';showModal.current=false;
           
             setArticls([]); setActivID(''); setError(null);
-             console.log('namberPage-1',namberPage,',',namberPage !== 1);
+            // console.log('namberPage-1',namberPage,',',namberPage !== 1);
             if (namberPage !== 1) {setNamberPage(1); if (Number(prevNamberPage.current) !== 1) prevNamberPage.current=1;} 
-            searchImage(prevImageName.current, namberPage, namberPerPage);
-            console.log('prevImageName.current',prevImageName.current); console.log('namberPage-2',namberPage);
+            //searchImage(prevImageName.current, namberPage, namberPerPage);
             searchImage(prevImageName.current, prevNamberPage.current, namberPerPage);  return;
         } else{
         if (Number(prevNamberPage.current) !== namberPage) {
-             console.log('useEffect: prevNamberPage.current !== namberPage');
             prevNamberPage.current=namberPage;
-            console.log('prevNamberPage', prevNamberPage.current); 
             statusSet.current = 'idle';  setActivID('');
             searchImage(prevImageName.current, prevNamberPage.current, namberPerPage);
             }
             }
         if (prevActivID.current !== activID) {
             prevActivID.current=activID;
-            console.log(' prevActivID', prevActivID.current); 
             onClikeImage( showModal.current, articls.find(articl => articl.id === Number(activID)));
             showModal.current=false;
         }
@@ -61,7 +57,7 @@ export default function ImageGallery({imageName,onClikeImage}) {
             statusSet.current='pending';
             let res = await axiosImages(imageName, namberPage, namberPer_page);
             const articlsN = res.data.hits;
-            console.log('namberPage Arr=',namberPage); console.log('prevNamberPage.current Arr=',prevNamberPage.current);
+           
             if (Number(prevNamberPage.current) !== 1) setArticls(articls.concat(articlsN));   
             else setArticls(articlsN);                               
               statusSet.current='resolved';//стан отримані дані з бекендку
@@ -72,7 +68,7 @@ export default function ImageGallery({imageName,onClikeImage}) {
                 pageTotalSet.current=(Math.ceil(datatotalHits / namberPerPage));
             } else {
                 pageTotalSet.current=(Math.ceil(dataTotal / namberPerPage));
-                } console.log(pageTotalSet.current);
+                }// console.log(pageTotalSet.current);
         }   
       } catch (error) {
            console.log(error.message);
@@ -88,7 +84,7 @@ export default function ImageGallery({imageName,onClikeImage}) {
     //Отримання данних про вибрану картинку
     const lookImage = event => {
         if (event.target.id !== '') {
-            console.log('картка вибрана');
+           // console.log('картка вибрана');
             setActivID(event.target.id); showModal.current=true;
         };
     };

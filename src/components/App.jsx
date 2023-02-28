@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef} from "react";
 import PropTypes from 'prop-types';
-import { Modal } from "./Modal/Modal";
+import  Modal  from "./Modal/Modal";
 import { Searchbar } from "./Searchbar";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import { ToastContainer } from "react-toastify";
@@ -14,8 +14,8 @@ export default function App() {
   const [articls, setArticls] = useState([{}]);
  const prevImageName = useRef('');
   useEffect(() => {
-    if (imageName === '') { console.log('useEffect: порожня строка в imageName'); return; }
-    if (prevImageName.current !== imageName) { console.log('useEffect: сброс поискового слова imageName'); setArticls([{}]); prevImageName.current = imageName; }
+    if (imageName === '') { return; }
+    if (prevImageName.current !== imageName) {  setArticls([{}]); prevImageName.current = imageName; }
   }, [imageName])
 
  const toogleModal = () => { 
