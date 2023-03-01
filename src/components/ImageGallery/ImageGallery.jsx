@@ -96,7 +96,7 @@ export default function ImageGallery({imageName,onClikeImage}) {
     //console.log(articls); console.log((namberPage !== pageTotalSet.current && Number(articls.length) !== 0));
         if (statusSet.current === 'resolved'){
             return (
-            Number(articls.length) === 0?<BoxButton> <h2>Пошук картинки по слову  {imageName} не два результату</h2></BoxButton>:
+            Number(articls.length) === 0?<BoxButton> <h2>Пошук картинки по слову  {imageName} не дав результату</h2></BoxButton>:
             <div> 
             <ImageGalleryStiled onClick={lookImage}>
                 <ImageGalleryItems datas={articls}></ImageGalleryItems>

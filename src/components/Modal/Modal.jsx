@@ -8,8 +8,14 @@ import { ModalWindous } from "./Modal.stiled";
 const modulRoot = document.querySelector('#modal-root');
 
 const  Modal = memo(function Modal({ onClose,children }) {
-    useEffect(() => { window.removeEventListener('keydown', handleKeydown); window.addEventListener('keydown',handleKeydown)},[])
-      const  handleKeydown = event => {
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeydown); return () => {
+      window.removeEventListener('keydown', handleKeydown);
+    };},[])
+     
+
+    
+    const handleKeydown = event => {
             if (event.code === 'Escape')
             {
                // console.log('{Закриття модалки Escape}');
