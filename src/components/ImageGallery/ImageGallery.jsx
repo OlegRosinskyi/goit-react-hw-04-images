@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from 'prop-types';
 import ImageGalleryItems from "components/ImageGalleryItem/ImageGalleryItem";
 import axiosImages from "components/axiosImages";
@@ -48,12 +48,12 @@ export default function ImageGallery({imageName,onClikeImage}) {
             console.log(prevActivID.current);
             let array = [''];
             if (prevActivID.current !== '') { array = articls.find(articl => articl.id === Number(prevActivID.current));}
-            onClikeImage( showModal.current,array,);
+             onClikeImage( showModal.current,array,);
             showModal.current=false;
         }
-        },[imageName, namberPage, activID, articls, ])
-    
- const searchImage = async (imageName, namberPage, namberPer_page,) => {
+    }, [imageName, namberPage, activID, articls, ])
+   
+ const searchImage = useCallback( async (imageName, namberPage, namberPer_page,) => {
        
        try { 
             statusSet.current='pending';
@@ -78,7 +78,8 @@ export default function ImageGallery({imageName,onClikeImage}) {
            statusSet.current='rejected';
            setError(error.message);
        }
-    }; 
+ },[articls] );
+    
    const updateNamberPage = namberPage => {
     //Збереження в state пошукового слова запиту на пошук картинки.
         setNamberPage(namberPage);

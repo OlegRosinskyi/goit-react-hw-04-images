@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef} from "react";
+import { useEffect, useState, useRef,useCallback} from "react";
 import PropTypes from 'prop-types';
 import  Modal  from "./Modal/Modal";
 import { Searchbar } from "./Searchbar";
@@ -21,9 +21,9 @@ export default function App() {
  const toogleModal = () => { 
     setShowModal(!showModal);
     }; 
-  const updateId = (showModal, articls) => {
+  const updateId = useCallback ( (showModal, articls) => {
     setShowModal(showModal); setArticls(articls);
-    };
+    },[]);
   const updateImage = imageName => {
     //Збереження в state пошукового слова запиту на пошук картинки.
     setImageName(imageName);
