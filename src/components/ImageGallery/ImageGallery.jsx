@@ -23,7 +23,6 @@ export default function ImageGallery({imageName,onClikeImage}) {
     const prevActivID = useRef('');
    
     useEffect(() => {
-       
         if (imageName === '') {  statusSet.current = 'idle';return; }
        // console.log(prevImageName.current);
         if (prevImageName.current !== imageName) {
@@ -44,26 +43,29 @@ export default function ImageGallery({imageName,onClikeImage}) {
             }
             }
         if (prevActivID.current !== activID) {
-            prevActivID.current=activID;
-            onClikeImage( showModal.current, articls.find(articl => articl.id === Number(activID)));
+
+            prevActivID.current = activID;
+            console.log(prevActivID.current);
+            let array = [''];
+            if (prevActivID.current !== '') { array = articls.find(articl => articl.id === Number(prevActivID.current));}
+            onClikeImage( showModal.current,array,);
             showModal.current=false;
         }
-        },[imageName, namberPage, activID])
-
-       
- const searchImage = async (imageName, namberPage, namberPer_page) => {
+        },[imageName, namberPage, activID, articls, ])
+    
+ const searchImage = async (imageName, namberPage, namberPer_page,) => {
        
        try { 
             statusSet.current='pending';
             let res = await axiosImages(imageName, namberPage, namberPer_page);
-            const articlsN = res.data.hits;
+            let articlsN = res.data.hits;
            
             if (Number(prevNamberPage.current) !== 1) setArticls(articls.concat(articlsN));   
             else setArticls(articlsN);                               
               statusSet.current='resolved';//стан отримані дані з бекендку
             if (Number(prevNamberPage.current) === 1) {
-                const dataTotal = res.data.total;
-                const datatotalHits = res.data.totalHits;
+                let dataTotal = res.data.total;
+                let datatotalHits = res.data.totalHits;
             if (dataTotal > datatotalHits) {
                 pageTotalSet.current=(Math.ceil(datatotalHits / namberPerPage));
             } else {

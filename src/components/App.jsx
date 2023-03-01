@@ -28,7 +28,6 @@ export default function App() {
     //Збереження в state пошукового слова запиту на пошук картинки.
     setImageName(imageName);
     };
-
   return (
       <Container>
         <Searchbar onSubmit={updateImage}></Searchbar> 
@@ -38,7 +37,6 @@ export default function App() {
       </Container>
     );
 }
-
 App.propTypes = {
     onClikeImage:PropTypes.func,
     imageName: PropTypes.string,

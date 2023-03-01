@@ -8,7 +8,7 @@ import { ModalWindous } from "./Modal.stiled";
 const modulRoot = document.querySelector('#modal-root');
 
 const  Modal = memo(function Modal({ onClose,children }) {
-    useEffect(() => { window.removeEventListener('keydown', handleKeydown); window.addEventListener('keydown',handleKeydown)},[])
+ useEffect(()=>{ window.addEventListener('keydown',handleKeydown)},[])
       const  handleKeydown = event => {
             if (event.code === 'Escape')
             {
@@ -26,11 +26,10 @@ const  Modal = memo(function Modal({ onClose,children }) {
                 <Backdrop onClick={handleBackdropClick}>
                     <ModalWindous>{children}</ModalWindous>
                 </Backdrop>
-            </>,modulRoot)  
+                </>,modulRoot)  
 });
  Modal.propTypes = {
      children: PropTypes.array,
      onClose:PropTypes.func,
-    
 }
 export default Modal;
