@@ -40,6 +40,7 @@ export default function ImageGallery({imageName,onClikeImage}) {
         if (Number(prevNamberPage.current) !== namberPage) {
             prevNamberPage.current=namberPage;
             statusSet.current = 'idle';  setActivID('');
+            
             searchImage(prevImageName.current, prevNamberPage.current, namberPerPage);
             }
             }
