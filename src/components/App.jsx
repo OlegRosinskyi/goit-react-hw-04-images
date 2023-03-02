@@ -11,7 +11,7 @@ import { Container } from "./App.stiled";
 export default function App() {
   const [imageName, setImageName] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [articls, setArticls] = useState([{}]);
+  const [articls, setArticls] = useState({});
  const prevImageName = useRef('');
   useEffect(() => {
     if (imageName === '') { return; }

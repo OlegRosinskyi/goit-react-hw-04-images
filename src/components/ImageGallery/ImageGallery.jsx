@@ -22,38 +22,7 @@ export default function ImageGallery({imageName,onClikeImage}) {
     const prevNamberPage = useRef('1');
     const prevActivID = useRef('');
    
-    useEffect(() => {
-        if (imageName === '') {  statusSet.current = 'idle';return; }
-       // console.log(prevImageName.current);
-        if (prevImageName.current !== imageName) {
-           // console.log('useEffect: prevImageName.current !== imageName');
-            prevImageName.current = imageName;
-            pageTotalSet.current=0;statusSet.current='idle';showModal.current=false;
-          
-            setArticls([]); setActivID(''); setError(null);
-            // console.log('namberPage-1',namberPage,',',namberPage !== 1);
-            if (namberPage !== 1) {setNamberPage(1); if (Number(prevNamberPage.current) !== 1) prevNamberPage.current=1;} 
-            //searchImage(prevImageName.current, namberPage, namberPerPage);
-            searchImage(prevImageName.current, prevNamberPage.current, namberPerPage);  return;
-        } else{
-        if (Number(prevNamberPage.current) !== namberPage) {
-            prevNamberPage.current=namberPage;
-            statusSet.current = 'idle';  setActivID('');
-            searchImage(prevImageName.current, prevNamberPage.current, namberPerPage);
-            }
-            }
-        if (prevActivID.current !== activID) {
-
-            prevActivID.current = activID;
-            console.log(prevActivID.current);
-            let array = [''];
-            if (prevActivID.current !== '') { array = articls.find(articl => articl.id === Number(prevActivID.current));}
-             onClikeImage( showModal.current,array,);
-            showModal.current=false;
-        }
-    }, [imageName, namberPage, activID, articls, ])
-   
- const searchImage = useCallback( async (imageName, namberPage, namberPer_page,) => {
+const searchImage = useCallback( async (imageName, namberPage, namberPer_page,) => {
        
        try { 
             statusSet.current='pending';
@@ -91,6 +60,40 @@ export default function ImageGallery({imageName,onClikeImage}) {
             setActivID(event.target.id); showModal.current=true;
         };
     };
+
+
+    useEffect(() => {
+        if (imageName === '') {  statusSet.current = 'idle';return; }
+       // console.log(prevImageName.current);
+        if (prevImageName.current !== imageName) {
+           // console.log('useEffect: prevImageName.current !== imageName');
+            prevImageName.current = imageName;
+            pageTotalSet.current=0;statusSet.current='idle';showModal.current=false;
+          
+            setArticls([]); setActivID(''); setError(null);
+            // console.log('namberPage-1',namberPage,',',namberPage !== 1);
+            if (namberPage !== 1) {setNamberPage(1); if (Number(prevNamberPage.current) !== 1) prevNamberPage.current=1;} 
+            //searchImage(prevImageName.current, namberPage, namberPerPage);
+            searchImage(prevImageName.current, prevNamberPage.current, namberPerPage);  return;
+        } else{
+        if (Number(prevNamberPage.current) !== namberPage) {
+            prevNamberPage.current=namberPage;
+            statusSet.current = 'idle';  setActivID('');
+            searchImage(prevImageName.current, prevNamberPage.current, namberPerPage);
+            }
+            }
+        if (prevActivID.current !== activID) {
+
+            prevActivID.current = activID;
+            console.log(prevActivID.current);
+            let array = { };
+            if (prevActivID.current !== '') { array = articls.find(articl => articl.id === Number(prevActivID.current));}
+             onClikeImage( showModal.current,array,);
+            showModal.current=false;
+        }
+    }, [imageName,activID,articls,namberPage,searchImage,onClikeImage ])
+   
+ 
    
         if (statusSet.current === 'idle'){return <BoxButton><h2>Для пошуку картинки введить в поле пошуку назву картинки</h2></BoxButton> };   
        
